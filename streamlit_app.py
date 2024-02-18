@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import base64
 
 def download_font_file(url):
     headers = {
@@ -25,6 +26,7 @@ if st.button('Download'):
     if url:
         font_file = download_font_file(url)
         if font_file:
-            st.markdown(f"### Download Here: [Download {url.split('/')[-1]}](data:application/font-woff;base64,{font_file.decode('utf-8')})")
+            encoded_file = base64.b64encode(font_file).decode('utf-8')
+            st.markdown(f"### Download Here: [Download {url.split('/')[-1]}](data:application/font-woff;base64,{encoded_file})")
         else:
             st.markdown('Failed to download the font file. Please check the URL and try again.')
